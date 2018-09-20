@@ -27,28 +27,22 @@ namespace LinairVsBinair
 
 		static int BinairZoeken(int getal, int[] arr)
 		{
-			int[] halfArr = new int[arr.Length / 2];
-			int index = arr[arr.Length / 2];
-			int position = getal.CompareTo(index);
+			int low = 0;
+			int high = arr.Length - 1;
+			int mid;
 
-
-			while (position != 0)
+			while (low <= high)
 			{
-				
+				mid = (low + high) / 2;
 
-				if (position < 0)
-				{
-					arr.CopyTo(halfArr, index);
-					index -= halfArr[halfArr.Length / 2];
-				}
-				else 
-				{
-					index += halfArr[halfArr.Length / 2];
-					
-				}
+				if (arr[mid].CompareTo(getal) < 0)
+					low = mid + 1;
+				else if (arr[mid].CompareTo(getal) > 0)
+					high = mid - 1;
+				else return mid;
 			}
 
-			return position;
+			return -1;
 		}
 	}
 }
