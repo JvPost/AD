@@ -49,6 +49,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MijnAlgoritmen\MijnAlgoritmen.csproj">
+      <Project>{922b88cb-0b0f-449a-ae3f-90d8784e2c37}</Project>
+      <Name>MijnAlgoritmen</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MijnDatastructuren\MijnDatastructuren.csproj">
       <Project>{783b77e5-8a75-4288-9585-4bf6bc731901}</Project>
       <Name>MijnDatastructuren</Name>

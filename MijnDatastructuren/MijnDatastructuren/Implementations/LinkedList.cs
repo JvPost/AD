@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,13 +8,14 @@ using MijnDatastructuren.Interfaces;
 
 namespace MijnDatastructuren
 {
-	public sealed class LinkedList<T> : Collection<T>, Iterable<T>
+	public sealed class LinkedList<T> : Collection<T>, LinkedListItarable<T>
 	{
 		public class Node
 		{
 			public T Data { get; set; }
 			public Node Next { get; set; }
-			
+			public Node Previous { get; set; }
+
 			public Node()
 			{
 				Next = null;
@@ -27,55 +29,74 @@ namespace MijnDatastructuren
 		}
 
 		public int Length { get; private set; }
-		public Node VirtualFirst;
-		public Node Last;
+		public Node HeaderNode;
+		public Node TailNode;
 
 		public LinkedList()
 		{
-			VirtualFirst = new Node();
-			Last = VirtualFirst;
+			HeaderNode = new Node();
+			TailNode = new Node();
+			HeaderNode.Next = TailNode;
+			TailNode.Previous = HeaderNode;
 			Length = 0;
 		}
 
 		public void Push(T item)
 		{
 			Node newNode = new Node(item);
-			if (Length == 0)
-			{
-				VirtualFirst.Next = newNode;
-				Last = newNode;
-			}
-			else
-			{
-				Last.Next = newNode;
-				Last = newNode;
-			}
+
+			newNode.Previous = TailNode.Previous;
+			newNode.Next = TailNode;
+
+			TailNode.Previous.Next = newNode;
+			TailNode.Previous = newNode;
+			
 			Length++;
 		}
 
-		public void Add(int index, T item)
+		public void Insert(int index, T item)
+		{
+			Node previousNode = this.GetNode(index - 1);
+			Node newNode = new Node(item);
+
+			// Move previous node 1 up the linked list.
+			previousNode.Next.Previous = newNode;
+
+			// set new node links.
+			newNode.Next = previousNode.Next;
+			newNode.Previous = previousNode;
+
+			// Reconnect previous node to rest of linkedlist.
+			previousNode.Next = newNode;
+		}
+
+		public void AddFirst(T item)
+		{
+			Insert(0, item);
+		}
+
+		public void Set(int index, T item)
 		{
 			if (index > Length || index < 0)
 			{
 				throw new IndexOutOfRangeException();
 			}
-
-
+			
 			Node newNode = new Node(item);
-			Iterator<T> iterator = this.Iterator(0);
+			LinkedListIterator<T> iterator = this.Iterator();
 
 			if (index == 0)
 			{
 				// empty linked list
 				if (!iterator.HasNext())
 				{
-					VirtualFirst.Next = newNode;
-					Last = newNode;
+					HeaderNode.Next = newNode;
+					TailNode = newNode;
 				}
 				else // Add newNode to first item
 				{
-					newNode.Next = VirtualFirst.Next;
-					VirtualFirst.Next = newNode;
+					newNode.Next = HeaderNode.Next;
+					HeaderNode.Next = newNode;
 				}
 			}
 			else if (index == Length)
@@ -85,7 +106,7 @@ namespace MijnDatastructuren
 			// Add item somewhere in the middle.
 			else
 			{
-				while (iterator.HasNext() && iterator.Index < index)
+				while (iterator.HasNext() && iterator.CurrentIndex < index)
 				{
 					iterator.Next();
 				}
@@ -103,12 +124,12 @@ namespace MijnDatastructuren
 			}
 			else if (index == 0)
 			{
-				VirtualFirst.Next = VirtualFirst.Next.Next;
+				RemoveFirst();
 			}
 			else
 			{
-				Iterator<T> iter = this.Iterator(0);
-				while (iter.Index < index)
+				LinkedListIterator<T> iter = this.Iterator();
+				while (iter.CurrentIndex < index)
 				{
 					iter.Next();
 				}
@@ -121,7 +142,7 @@ namespace MijnDatastructuren
 
 		public void Remove(T item)
 		{
-			Iterator<T> iter = this.Iterator(0);
+			LinkedListIterator<T> iter = this.Iterator();
 			
 			while (iter.HasNext())
 			{
@@ -133,33 +154,24 @@ namespace MijnDatastructuren
 			}
 		}
 		
-		public void Pop()
+		public T Pop()
 		{
-			Node current = VirtualFirst.Next;
-
-			do
+			if (Length == 0)
 			{
-				if (current != null)
-				{
-					if (current.Next.Next == null)
-					{
-						current.Next = null;
-					}
-					else
-					{
-						current = current.Next;
-					}
-				}
-				else
-				{
-					throw new NullReferenceException("List is empty.");
-				}
-			} while (current.Next != null);
+				throw new EmptyLinkedListException("Can't perform this action on an empty linked list.");
+			}
+			T data = TailNode.Previous.Data;
+
+			TailNode.Previous.Previous.Next = TailNode;
+			TailNode.Previous = TailNode.Previous.Previous;
+			Length--;
+
+			return data;
 		}
 
 		public bool IsEmpty()
 		{
-			if (VirtualFirst.Next == null)
+			if (HeaderNode.Next == null)
 				return true;
 			else
 				return false;
@@ -173,7 +185,7 @@ namespace MijnDatastructuren
 		public bool Contains(T item)
 		{
 			bool contains = false;
-			Iterator<T> iter = this.Iterator(0);
+			LinkedListIterator<T> iter = this.Iterator();
 			while (iter.HasNext())
 			{
 				if (iter.Next().Equals(item))
@@ -188,14 +200,15 @@ namespace MijnDatastructuren
 
 		public void Clear()
 		{
-			VirtualFirst.Next = null;
+			HeaderNode.Next = TailNode;
+			TailNode.Previous = HeaderNode.Next;
 		}
 
 		public T[] ToArray()
 		{
 			T[] array = new T[Length];
 
-			Iterator<T> iter = this.Iterator(0);
+			LinkedListIterator<T> iter = this.Iterator();
 			int index = 0;
 
 			while (iter.HasNext())
@@ -211,55 +224,98 @@ namespace MijnDatastructuren
 		{
 			string str = "";
 
-			Iterator<T> iter = this.Iterator(0);
-
+			LinkedListIterator<T> iter = this.Iterator();			
 			while (iter.HasNext())
 			{
 				str += $"{iter.Next()}, ";
+				if (iter.CurrentIndex >= Length)
+					break;
 			}
 			return $"[{str}]";
 		}
 
-		public Iterator<T> Iterator(int position)
+		public LinkedListIterator<T> Iterator()
 		{
 			return new LinkedListIterator(this);
 		}
 
 		public T Get(int index)
 		{
-			throw new NotImplementedException();
+			LinkedListIterator<T> itr = Iterator();
+			T item = default(T);
+
+			while (itr.CurrentIndex < index && itr.HasNext())
+			{
+				item = itr.Next();
+			}
+			return item;
 		}
 
-		private sealed class LinkedListIterator : Iterator<T>
+		public void RemoveFirst()
 		{
-			LinkedList<T> _ListToIterate;
-			Node _Current;
-			Node _Previous;
+			HeaderNode.Next = HeaderNode.Next.Next;
+			HeaderNode.Next.Previous = HeaderNode;
+		}
 
-			public int Index { get; private set; }
+		public T GetFirst()
+		{
+			return HeaderNode.Next.Data;
+		}
+
+		// ******************************** //
+		//		Private Helper Methods		//
+		// ******************************** //
+		/// <summary>
+		/// Gets a node on an index;
+		/// </summary>
+		/// <param name="index">index of node to get.</param>
+		/// <returns></returns>
+		private Node GetNode(int index)
+		{
+			if (index > Length)
+			{
+				throw new IndexOutOfRangeException();
+			}
+			LinkedListIterator<T> itr = Iterator(); 
+
+			while (index >= itr.CurrentIndex)
+			{
+				if (!itr.HasNext())
+					throw new IndexOutOfRangeException();
+				else
+					itr.Next();
+			}
+			return itr.CurrentNode;
+		}
+
+		/// <summary>
+		/// Iterator implementation specifically for linkedlists.
+		/// </summary>
+		private sealed class LinkedListIterator : LinkedListIterator<T>
+		{
+			public Node CurrentNode { get; private set; }
+			public int CurrentIndex { get; private set; }
 
 			public T Data
 			{
-				get { return this._Current.Data; }
+				get { return this.CurrentNode.Data; }
 				set
 				{
 					if (value is T)
-						this._Current.Data = value;
+						this.CurrentNode.Data = value;
 				}
 			}
 
 			public LinkedListIterator(LinkedList<T> linkedList)
 			{
-				_ListToIterate = linkedList;
-				_Current = _ListToIterate.VirtualFirst;
-				_Previous = _ListToIterate.VirtualFirst;
-				Index = 0;
+				CurrentNode = linkedList.HeaderNode;
+				CurrentIndex = 0;
 			}
 
 			public bool HasNext()
 			{
 				bool check = false;
-				if (_Current.Next != null)
+				if (CurrentNode.Next != null)
 					check = true;
 				return check;
 			}
@@ -272,16 +328,30 @@ namespace MijnDatastructuren
 			/// </returns>
 			public T Next()
 			{
-				_Previous = _Current;
-				_Current = _Current.Next;
-				Index++;
-				return _Current.Data;
+				CurrentNode = CurrentNode.Next;
+				CurrentIndex++;
+				return CurrentNode.Data;
 			}
 
 			public void Remove()
 			{
-				_Previous.Next = _Current.Next;
+				CurrentNode.Previous.Next = CurrentNode.Next;
 			}
+		}
+	}
+
+	public class EmptyLinkedListException : Exception
+	{
+		public EmptyLinkedListException()
+		{
+		}
+
+		public EmptyLinkedListException(string message) : base(message)
+		{
+		}
+
+		public EmptyLinkedListException(string message, Exception innerException) : base(message, innerException)
+		{
 		}
 	}
 }

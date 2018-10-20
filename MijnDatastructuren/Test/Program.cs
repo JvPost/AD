@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MijnDatastructuren;
+using MijnAlgoritmen;
 
 
 namespace MijnDatastructuren.Test
@@ -12,51 +14,76 @@ namespace MijnDatastructuren.Test
 	{
 		static void Main(string[] args)
 		{
-			//
-			// Linked List
-			//
+			Console.WriteLine(Les2.CheckBrackets(""));
+			Console.WriteLine(Les3.Sum(123));
+			Console.WriteLine(Les3.Reverse("ASD"));
 
-			//LinkedList<string> LL = new LinkedList<string>();
+			List<int> theList = new List<int>()
+			{
+				0,1,2,3,4,5,6,7,8,9
+			};
 
-			//for (int i = 0; i < 10; i++)
-			//{
-			//	LL.Push($"newNode{i}");
-			//}
+			Les3.PrintForward(theList, 3);
+			Console.WriteLine();
+			Les3.PrintBackwards(theList, 3);
+			
 
-			//Console.WriteLine(LL);
+			Console.WriteLine();
 
-			//LL.Add(2, "newNodeASD");
+			// Arrange
+			while (true)
+			{
+				Console.Write("enter power: ");
+				string powerstr = Console.ReadLine();
+				double power;
+				long amount = 0;
+				if (double.TryParse(powerstr, out power))
+					amount = (long)(1 * Math.Pow(10, power));
+				else
+					Console.WriteLine("wrong value");
 
-			//Console.WriteLine(LL);
+				int[] unsortedArr = new int[amount];
+				//int maxVal = amount == 10 ? 10 : (int)(amount * 0.1);
 
-			//LL.RemoveAtIndex(5);
 
-			//Console.WriteLine(LL.Contains("newNode8"));
-			//Console.WriteLine(LL.Contains("newNode9"));
-			//Console.WriteLine(LL.Contains("newNode10"));
+				Random rnd = new Random();
+				for (int i = 0; i < amount; i++)
+				{
+					unsortedArr[i] = rnd.Next((int)amount);
+				}
 
-			//Console.WriteLine(LL);
-			//Console.ReadKey();
+				// Act
+				Stopwatch sw = new Stopwatch();
+				Console.WriteLine($"N = {amount} => {nameof(Algoritmen<int>.MergeSort)}({amount})");
+				sw.Start();
+				Algoritmen<int>.MergeSort(unsortedArr);
+				sw.Stop();
+
+
+				// Assert
+				decimal ms = sw.ElapsedMilliseconds;
+				Console.WriteLine($"T(N) = {ms}ms");
+			}
 
 			//
 			// Array List
 			//
 
-			ArrayList<int> AL = new ArrayList<int>();
+			//ArrayList<int> AL = new ArrayList<int>();
 
-			for (double i = 1; i <= 10; i++)
-			{
-				AL.Push((int)Math.Ceiling(i));
-				AL.Push(420);
-			}
+			//for (double i = 1; i <= 10; i++)
+			//{
+			//	AL.Push((int)Math.Ceiling(i));
+			//	AL.Push(420);
+			//}
 
-			Console.WriteLine(AL);
+			//Console.WriteLine(AL);
 
-			AL.Remove(420);
+			//AL.Remove(420);
 
-			Console.WriteLine(AL);
+			//Console.WriteLine(AL);
 
-			Console.ReadKey();
+			//Console.ReadKey();
 		}
 	}
 }

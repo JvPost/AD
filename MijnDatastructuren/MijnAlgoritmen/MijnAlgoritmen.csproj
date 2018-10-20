@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{783B77E5-8A75-4288-9585-4BF6BC731901}</ProjectGuid>
+    <ProjectGuid>{922B88CB-0B0F-449A-AE3F-90D8784E2C37}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MijnDatastructuren</RootNamespace>
-    <AssemblyName>MijnDatastructuren</AssemblyName>
+    <RootNamespace>MijnAlgoritmen</RootNamespace>
+    <AssemblyName>MijnAlgoritmen</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,15 +40,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Implementations\ArrayList.cs" />
-    <Compile Include="Implementations\DoubleyLinkedList.cs" />
-    <Compile Include="Implementations\LinkedList.cs" />
-    <Compile Include="Implementations\Stack.cs" />
-    <Compile Include="Interfaces\Collection.cs" />
-    <Compile Include="Interfaces\Iterable.cs" />
-    <Compile Include="Interfaces\Iterator.cs" />
-    <Compile Include="Interfaces\Stack.cs" />
+    <Compile Include="Algoritmen.cs" />
+    <Compile Include="Les2.cs" />
+    <Compile Include="Les3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MijnDatastructuren\MijnDatastructuren.csproj">
+      <Project>{783b77e5-8a75-4288-9585-4bf6bc731901}</Project>
+      <Name>MijnDatastructuren</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

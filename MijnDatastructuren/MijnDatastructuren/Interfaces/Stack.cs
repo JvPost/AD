@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace MijnDatastructuren.Interfaces
 {
-	public interface LinkedListItarable<T>
+	interface Stack<T>
 	{
-		LinkedListIterator<T> Iterator(); 
-	}
-
-	public interface Iterable<T>
-	{
-		Iterator<T> Iterator();
+		int Length { get; }
+		void Push(T data);
+		T Pop();
 	}
 }

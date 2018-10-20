@@ -1,0 +1,22 @@
+.boom{
+    position: fixed;
+    padding:0;
+    margin:0;
+
+    top:0;
+    left:0;
+
+    width: 100%;
+    height: 100%;
+}
+
+.startSquare{
+    height: 100px;
+    width: 100px;
+    border: 1px solid black;
+    margin: 0;
+
+    position: absolute;
+    top: 80%;
+    left:45%;
+}

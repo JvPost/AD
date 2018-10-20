@@ -11,9 +11,9 @@ namespace MijnDatastructuren.Interfaces
 		int Length { get; }
 		bool IsEmpty();
 		int Size();
-		void Add(int index, T item);
+		void Set(int index, T item);
 		void Push(T item);
-		void Pop();
+		T Pop();
 		bool Contains(T item);
 		void Remove(T item);
 		void RemoveAtIndex(int index);

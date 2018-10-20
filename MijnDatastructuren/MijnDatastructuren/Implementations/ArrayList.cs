@@ -10,7 +10,7 @@ namespace MijnDatastructuren
 	public sealed class ArrayList<T> : Collection<T>, Iterable<T> 
 	{
 		public T[] BaseArray;
-		public int Length { get; set; }
+		public int Length { get; private set; }
 		public int BaseArrayLength => BaseArray.Length;
 
 		public ArrayList()
@@ -26,7 +26,7 @@ namespace MijnDatastructuren
 				return BaseArray[index];
 		}
 
-		public void Add(int index, T item)
+		public void Set(int index, T item)
 		{
 			NewItem(index, item);
 
@@ -45,7 +45,7 @@ namespace MijnDatastructuren
 
 		public bool Contains(T item)
 		{
-			Iterator<T> iter = this.Iterator(0);
+			Iterator<T> iter = this.Iterator();
 			do
 			{
 				if (iter.Next().Equals(item))
@@ -60,16 +60,18 @@ namespace MijnDatastructuren
 			return Length == 0;
 		}
 
-		public Iterator<T> Iterator(int position)
+		public Iterator<T> Iterator()
 		{
 			T[] arr = new T[Length];
-			BaseArray.CopyTo(arr, position);
-			return new ArrayListIterator(position, this);
+			BaseArray.CopyTo(arr, 0);
+			return new ArrayListIterator(0, this);
 		}
 
-		public void Pop()
+		public T Pop()
 		{
+			var data = BaseArray[Length - 1];
 			BaseArray[Length - 1] = default(T);
+			return data;
 		}
 		
 		public void Push(T item)
@@ -80,7 +82,7 @@ namespace MijnDatastructuren
 
 		public void Remove(T item)
 		{
-			Iterator<T> it = this.Iterator(0);
+			Iterator<T> it = this.Iterator();
 			do
 			{
 				if (it.Next().Equals(item))
@@ -99,6 +101,8 @@ namespace MijnDatastructuren
 		{
 			return Length;
 		}
+
+
 
 		public T[] ToArray()
 		{
@@ -146,26 +150,31 @@ namespace MijnDatastructuren
 			return newArray;
 		}
 
-
-
 		private sealed class ArrayListIterator : Iterator<T>
 		{
-			public int Index { get; private set; }
+			// Properties
+			public int CurrentIndex { get; private set; }
 			public T Data
 			{
-				get => _BaseArrayList.BaseArray[Index];
+				get => _BaseArrayList.BaseArray[CurrentIndex];
 				set
 				{
-					if (_BaseArrayList == null || Index <= _BaseArrayList.Length)
+					if (_BaseArrayList == null || CurrentIndex <= _BaseArrayList.Length)
 						throw new IndexOutOfRangeException();
 					else if (value is T)
-						_BaseArrayList.Add(Index, value);
+						_BaseArrayList.Set(CurrentIndex, value);
 					else
 						throw new ArrayTypeMismatchException("Trying to add a value of the wrong type.");
 				}
 			}
+			public T Current { get; }
+
+
+			// Fields
 			private ArrayList<T> _BaseArrayList;
 
+
+			// Methods
 			public ArrayListIterator(int position, ArrayList<T> arrayList)
 			{
 				_BaseArrayList = arrayList;
@@ -173,24 +182,24 @@ namespace MijnDatastructuren
 				if (position < 0 || position >= arrayList.BaseArray.Length)
 					throw new IndexOutOfRangeException();
 
-				Index = position;
+				CurrentIndex = position;
 			}
 
 			public bool HasNext()
 			{
-				return Index < _BaseArrayList.BaseArray.Length;
+				return CurrentIndex < _BaseArrayList.BaseArray.Length;
 			}
 
 			public T Next()
 			{
 				if (!this.HasNext())
 					throw new IndexOutOfRangeException();
-				return _BaseArrayList.BaseArray[Index++];				
+				return _BaseArrayList.BaseArray[CurrentIndex++];				
 			}
 
 			public void Remove()
 			{
-				_BaseArrayList.BaseArray[--Index] = default(T);
+				_BaseArrayList.BaseArray[--CurrentIndex] = default(T);
 			}
 		}
 	}

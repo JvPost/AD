@@ -8,10 +8,15 @@ namespace MijnDatastructuren.Interfaces
 {
 	public interface Iterator<T>
 	{
-		int Index { get; }
+		int CurrentIndex { get; }
 		T Data { get; set;}
 		bool HasNext();
 		T Next();
 		void Remove();
+	}
+
+	public interface LinkedListIterator<T> : Iterator<T>
+	{
+		LinkedList<T>.Node CurrentNode { get; }
 	}
 }
