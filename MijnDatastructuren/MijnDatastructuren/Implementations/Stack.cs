@@ -8,27 +8,27 @@ namespace MijnDatastructuren
 {
 	public class Stack<T> : MijnDatastructuren.Interfaces.Stack<T>
 	{
-		LinkedList<T> LinkedList { get; set; }
-		public int Length => LinkedList.Length;
+		ArrayList<T> ArrayList { get; set; }
+		public int Length => ArrayList.Length;
 
 		public Stack()
 		{
-			LinkedList = new LinkedList<T>();
+			ArrayList = new ArrayList<T>();
 		}
 
 		public void Push(T data)
 		{
-			LinkedList.Push(data);
+			ArrayList.Push(data);
 		}
 
 		public T Pop()
 		{
-			return LinkedList.Pop();
+			return ArrayList.Pop();
 		}
 
 		public override string ToString()
 		{
-			return LinkedList.ToString();
+			return ArrayList.ToString();
 		}
 	}
 }

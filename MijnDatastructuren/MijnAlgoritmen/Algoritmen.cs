@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MijnAlgoritmen
 {
-	public static class Algoritmen<T> where T : IComparable
+	public static class Sorting<T> where T : IComparable
 	{
 		public static void InsertionSort(T[] arr)
 		{
@@ -16,6 +16,19 @@ namespace MijnAlgoritmen
 				int j = p;
 
 				for (; j > 0 && tmp.CompareTo( arr[j - 1] ) < 0; j--)
+					arr[j] = arr[j - 1];
+				arr[j] = tmp;
+			}
+		}
+
+		private static void InsertionSort(T[] arr, int low, int high)
+		{
+			for (int i = low; i <= high; i++)
+			{
+				T tmp = arr[i];
+				int j = i;
+
+				for (; j > 0 && tmp.CompareTo(arr[j - 1]) < 0; j--)
 					arr[j] = arr[j - 1];
 				arr[j] = tmp;
 			}
@@ -115,11 +128,10 @@ namespace MijnAlgoritmen
 
 		private static void QuickSort(T[] arr, int low, int high)
 		{
-			int CUTOFF = 2;
+			int CUTOFF = 20;
 			if (low + CUTOFF > high)
 			{
-				//TODO: fix sort
-				//InsertionSort(arr, low, high);
+				InsertionSort(arr, low, high);
 			}
 			else
 			{
@@ -127,19 +139,19 @@ namespace MijnAlgoritmen
 				int middle = (low + high) / 2;
 				if (arr[middle].CompareTo(arr[low]) < 0)
 				{
-					// SwapReference(arr, low, middle);
+					SwapReference(arr, low, middle);
 				}
 				if (arr[high].CompareTo(arr[low]) < 0)
 				{
-					// SwapReference(arr, low, high);
+					SwapReference(arr, low, high);
 				}
 				if (arr[high].CompareTo(arr[middle]) < 0)
 				{
-					// SwapReference(arr, middle, high );
+					SwapReference(arr, middle, high);
 				}
 
 				// place pivot at position high - 1
-				//SwapReference(a, middle, high - 1)
+				SwapReference(arr, middle, high - 1);
 				T pivot = arr[high - 1];
 
 				int i, j;
@@ -151,13 +163,25 @@ namespace MijnAlgoritmen
 						;
 					if (i >= j)
 						break;
-					// SwapReference(arr, i, j)
+					SwapReference(arr, i, j);
 				}
 
-				// Restor pivot
+				// Restore pivot
 				QuickSort(arr, low, i - 1); // Sort small elements
 				QuickSort(arr, i + 1, high); // sort large elements
 			}
 		}
+
+		private static void SwapReference(T[] arr, int item1, int item2)
+		{
+			T tmp = arr[item1];
+			arr[item1] = arr[item2];
+			arr[item2] = tmp;
+		}
+	}
+
+	public static class Algoritmen
+	{
+		
 	}
 }

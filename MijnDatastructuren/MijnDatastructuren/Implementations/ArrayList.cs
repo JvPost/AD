@@ -63,7 +63,7 @@ namespace MijnDatastructuren
 		public Iterator<T> Iterator()
 		{
 			T[] arr = new T[Length];
-			BaseArray.CopyTo(arr, 0);
+			Array.Copy(BaseArray, 0, arr, 0, Length);
 			return new ArrayListIterator(0, this);
 		}
 
@@ -99,10 +99,13 @@ namespace MijnDatastructuren
 
 		public int Size()
 		{
-			return Length;
+			return ArrayList<T>.Size(this);
 		}
 
-
+		public static int Size( ArrayList<T> arr)
+		{
+			return arr.Length;
+		}
 
 		public T[] ToArray()
 		{

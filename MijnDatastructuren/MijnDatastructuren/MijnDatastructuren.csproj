@@ -42,9 +42,12 @@
   <ItemGroup>
     <Compile Include="Implementations\ArrayList.cs" />
     <Compile Include="Implementations\DoubleyLinkedList.cs" />
+    <Compile Include="Implementations\FCNSTree.cs" />
     <Compile Include="Implementations\LinkedList.cs" />
     <Compile Include="Implementations\Stack.cs" />
+    <Compile Include="Implementations\GenericTree.cs" />
     <Compile Include="Interfaces\Collection.cs" />
+    <Compile Include="Interfaces\IFCNSTree.cs" />
     <Compile Include="Interfaces\Iterable.cs" />
     <Compile Include="Interfaces\Iterator.cs" />
     <Compile Include="Interfaces\Stack.cs" />
