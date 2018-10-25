@@ -76,8 +76,7 @@ namespace MijnDatastructuren.Test
 			NodeB.AddChild(NodeC);
 			NodeB.AddChild(NodeD);
 
-			GenericTree genericTree = new GenericTree(NodeA);
-			Console.WriteLine(TreeNode.Size(NodeA));
+			TreeNode.PrintPreOrder(NodeA);
 			Console.ReadKey();
 		}
 	}

@@ -10,7 +10,7 @@ namespace MijnDatastructuren
 	{
 		public object Data { get; set; }
 		public ArrayList<TreeNode> Children = new ArrayList<TreeNode>();
-
+		
 		public TreeNode() { }
 		public TreeNode(object data)
 		{
@@ -27,6 +27,8 @@ namespace MijnDatastructuren
 			return !Children.IsEmpty();
 		}
 
+		public int Size() => TreeNode.Size(this);
+
 		public static int Size(TreeNode node)
 		{
 			int size = 1;
@@ -36,14 +38,6 @@ namespace MijnDatastructuren
 			}
 			if (node.HasChildren())
 			{
-				// TODO : Make ArrayList & Iterator easier to use in external classes.
-				//while (node.Children.Iterator().HasNext())
-				//{
-				//	TreeNode currentNode = node.Children.Iterator().Next();
-				//	if (currentNode == null)
-				//		break;
-				//	size += Size(currentNode);
-				//}
 				for (int i = 0; i < node.Children.Size(); i++)
 				{
 					TreeNode currentNode = node.Children.Get(i);
@@ -57,7 +51,23 @@ namespace MijnDatastructuren
 
 		public void PrintPreOrder()
 		{
+			PrintPreOrder(this);
+		}
+		
+		public static void PrintPreOrder(TreeNode node)
+		{
+			Console.WriteLine(node.Data);
 
+			if (node.HasChildren())
+			{
+				for (int i = 0; i < node.Children.Size(); i++)
+				{
+					TreeNode currentNode = node.Children.Get(i);
+					if (currentNode == null)
+						break;
+					PrintPreOrder(currentNode);
+				}
+			}
 		}
 	}
 
@@ -68,6 +78,23 @@ namespace MijnDatastructuren
 		public GenericTree(TreeNode root)
 		{
 			Root = root;
+		}
+
+		public int Size() => Size(this);
+
+		public static int Size(GenericTree tree)
+		{
+			return TreeNode.Size(tree.Root);
+		}
+
+		public void PrintPreOrder()
+		{
+			PrintPreOrder(this);
+		}
+
+		public static void PrintPreOrder(GenericTree tree)
+		{
+			TreeNode.PrintPreOrder(tree.Root);
 		}
 	}
 }
