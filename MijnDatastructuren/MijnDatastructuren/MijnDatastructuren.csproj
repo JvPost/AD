@@ -41,16 +41,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementations\ArrayList.cs" />
+    <Compile Include="Implementations\BinaryNode.cs" />
+    <Compile Include="Implementations\BinarySearchTree\BinaryNode.cs" />
+    <Compile Include="Implementations\BinarySearchTree\BinarySearchTree.cs" />
+    <Compile Include="Implementations\BinarySearchTree\IBinarySearchTree.cs" />
+    <Compile Include="Implementations\BinarySearchTree\RankedBinarySearchTree.cs" />
+    <Compile Include="Implementations\BinaryTree.cs" />
     <Compile Include="Implementations\DoubleyLinkedList.cs" />
     <Compile Include="Implementations\FCNSTree.cs" />
+    <Compile Include="Implementations\InOrder.cs" />
     <Compile Include="Implementations\LinkedList.cs" />
+    <Compile Include="Implementations\PostOrder.cs" />
+    <Compile Include="Implementations\PreOrder.cs" />
     <Compile Include="Implementations\Stack.cs" />
     <Compile Include="Implementations\GenericTree.cs" />
+    <Compile Include="Implementations\BinaryTreeIterator.cs" />
+    <Compile Include="Interfaces\FCNSTree.cs" />
+    <Compile Include="Interfaces\TreeNode.cs" />
+    <Compile Include="Interfaces\BinaryTree.cs" />
     <Compile Include="Interfaces\Collection.cs" />
-    <Compile Include="Interfaces\IFCNSTree.cs" />
     <Compile Include="Interfaces\Iterable.cs" />
     <Compile Include="Interfaces\Iterator.cs" />
     <Compile Include="Interfaces\Stack.cs" />
+    <Compile Include="PriorityQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

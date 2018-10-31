@@ -14,6 +14,7 @@ namespace MijnDatastructuren.Interfaces
 		void Set(int index, T item);
 		void Push(T item);
 		T Pop();
+		T Last();
 		bool Contains(T item);
 		void Remove(T item);
 		void RemoveAtIndex(int index);

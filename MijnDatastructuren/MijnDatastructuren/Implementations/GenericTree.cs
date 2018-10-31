@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace MijnDatastructuren
 {
-	public class TreeNode
+	public class GenericNode
 	{
 		public object Data { get; set; }
-		public ArrayList<TreeNode> Children = new ArrayList<TreeNode>();
+		public ArrayList<GenericNode> Children = new ArrayList<GenericNode>();
 		
-		public TreeNode() { }
-		public TreeNode(object data)
+		public GenericNode() { }
+		public GenericNode(object data)
 		{
 			Data = data;
 		}
 
-		public void AddChild(TreeNode newChild)
+		public void AddChild(GenericNode newChild)
 		{
 			Children.Push(newChild);
 		}
@@ -27,9 +27,9 @@ namespace MijnDatastructuren
 			return !Children.IsEmpty();
 		}
 
-		public int Size() => TreeNode.Size(this);
+		public int Size() => GenericNode.Size(this);
 
-		public static int Size(TreeNode node)
+		public static int Size(GenericNode node)
 		{
 			int size = 1;
 			if (node == null)
@@ -40,7 +40,7 @@ namespace MijnDatastructuren
 			{
 				for (int i = 0; i < node.Children.Size(); i++)
 				{
-					TreeNode currentNode = node.Children.Get(i);
+					GenericNode currentNode = node.Children.Get(i);
 					if (currentNode == null)
 						break;
 					size += Size(currentNode);
@@ -54,7 +54,7 @@ namespace MijnDatastructuren
 			PrintPreOrder(this);
 		}
 		
-		public static void PrintPreOrder(TreeNode node)
+		public static void PrintPreOrder(GenericNode node)
 		{
 			Console.WriteLine(node.Data);
 
@@ -62,7 +62,7 @@ namespace MijnDatastructuren
 			{
 				for (int i = 0; i < node.Children.Size(); i++)
 				{
-					TreeNode currentNode = node.Children.Get(i);
+					GenericNode currentNode = node.Children.Get(i);
 					if (currentNode == null)
 						break;
 					PrintPreOrder(currentNode);
@@ -73,9 +73,9 @@ namespace MijnDatastructuren
 
 	public class GenericTree
 	{
-		public TreeNode Root { get; set; }
+		public GenericNode Root { get; set; }
 
-		public GenericTree(TreeNode root)
+		public GenericTree(GenericNode root)
 		{
 			Root = root;
 		}
@@ -84,7 +84,7 @@ namespace MijnDatastructuren
 
 		public static int Size(GenericTree tree)
 		{
-			return TreeNode.Size(tree.Root);
+			return GenericNode.Size(tree.Root);
 		}
 
 		public void PrintPreOrder()
@@ -94,7 +94,7 @@ namespace MijnDatastructuren
 
 		public static void PrintPreOrder(GenericTree tree)
 		{
-			TreeNode.PrintPreOrder(tree.Root);
+			GenericNode.PrintPreOrder(tree.Root);
 		}
 	}
 }

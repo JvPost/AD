@@ -3,33 +3,76 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MijnDatastructuren.Implementations;
 using MijnDatastructuren.Interfaces;
 
 namespace MijnDatastructuren
 {
-	public class FCSNSNode<T>
+	public class FCNSTree<T> : Interfaces.FCNSTree<T>
 	{
+		public class FCNSNode
+		{
+			public T Element { get; set; }
+			public FCNSNode FirstChild { get; set; }
+			public FCNSNode NextSibling { get; set; }
 
-	}
+			public FCNSNode()
+			{
+			}
 
-	class FCNSTree<T> : IFCNSTree<T>
-	{
-		LinkedList<FCSNSNode<T>> FCNSLinkedList;
-		FCSNSNode<T> Root;
+			public FCNSNode(T element)
+			{
+				Element = element;
+			}
+
+			public void PrintPreOrder()
+			{
+				Console.WriteLine(Element);
+				if (FirstChild != null)
+					FirstChild.PrintPreOrder();
+				if (NextSibling != null)
+					NextSibling.PrintPreOrder();
+			}
+
+			public int Size()
+			{
+				return Size(this);
+			}
+
+			public static int Size(FCNSNode n)
+			{
+				if (n == null)
+					return 0;
+				else
+					return 1 + Size(n.FirstChild) + Size(n.NextSibling);
+			}
+		}
+
+		public FCNSNode Root { get; private set; }
 
 		public FCNSTree()
 		{
-			FCNSLinkedList = new LinkedList<FCSNSNode<T>>();
+			Root = null;
+		}
+
+		public FCNSTree(T rootElement)
+		{
+			Root = new FCNSNode(rootElement);
+		}
+
+		public FCNSTree(FCNSNode rootNode)
+		{
+			Root = rootNode;
 		}
 
 		public void PrintPreOrder()
 		{
-			throw new NotImplementedException();
+			Root.PrintPreOrder();
 		}
 
 		public int Size()
 		{
-			throw new NotImplementedException();
+			return Root.Size();
 		}
 	}
 }

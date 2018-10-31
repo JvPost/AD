@@ -11,5 +11,8 @@ namespace MijnDatastructuren.Interfaces
 		int Length { get; }
 		void Push(T data);
 		T Pop();
+		T Top();
+		void Clear();
+		bool IsEmpty();
 	}
 }

@@ -69,8 +69,9 @@ namespace MijnDatastructuren
 
 		public T Pop()
 		{
-			var data = BaseArray[Length - 1];
-			BaseArray[Length - 1] = default(T);
+			Length--;
+			var data = BaseArray[Length];
+			BaseArray[Length] = default(T);
 			return data;
 		}
 		
@@ -151,6 +152,11 @@ namespace MijnDatastructuren
 			T[] newArray = new T[BaseArray.Length * 2];
 			BaseArray.CopyTo(newArray, 0);
 			return newArray;
+		}
+
+		public T Last()
+		{
+			return BaseArray[Length - 1];
 		}
 
 		private sealed class ArrayListIterator : Iterator<T>

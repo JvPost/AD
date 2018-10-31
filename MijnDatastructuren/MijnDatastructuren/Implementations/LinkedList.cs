@@ -288,6 +288,11 @@ namespace MijnDatastructuren
 			return itr.CurrentNode;
 		}
 
+		public T Last()
+		{
+			return TailNode.Previous.Data;
+		}
+
 		/// <summary>
 		/// Iterator implementation specifically for linkedlists.
 		/// </summary>

@@ -21,14 +21,34 @@ namespace MijnDatastructuren
 			ArrayList.Push(data);
 		}
 
+		/// <summary>
+		/// Returns and removes last item from stack.
+		/// </summary>
+		/// <returns></returns>
 		public T Pop()
 		{
 			return ArrayList.Pop();
+		}
+
+		/// <summary>
+		/// Returns last item from stack.
+		/// </summary>
+		/// <returns></returns>
+		public T Top()
+		{
+			return ArrayList.Last();
 		}
 
 		public override string ToString()
 		{
 			return ArrayList.ToString();
 		}
+
+		public void Clear()
+		{
+			ArrayList.Clear();
+		}
+
+		public bool IsEmpty() => ArrayList.IsEmpty();
 	}
 }
