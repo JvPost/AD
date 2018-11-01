@@ -8,6 +8,7 @@ using MijnDatastructuren;
 using MijnAlgoritmen;
 using MijnDatastructuren.Implementations;
 using MijnDatastructuren.Implementations.BinarySearchTree;
+using MijnDatastructuren.Grafen;
 
 
 namespace MijnDatastructuren.Test
@@ -146,21 +147,53 @@ namespace MijnDatastructuren.Test
 
 			//Console.ReadKey();
 
-			Implementations.BinarySearchTree.BinaryNode<int> Root = new Implementations.BinarySearchTree.BinaryNode<int>(6);
-			Implementations.BinarySearchTree.BinaryNode<int> Node1 = new Implementations.BinarySearchTree.BinaryNode<int>(6);
-			Implementations.BinarySearchTree.BinaryNode<int> Node2 = new Implementations.BinarySearchTree.BinaryNode<int>(6);
-			Implementations.BinarySearchTree.BinaryNode<int> Node3 = new Implementations.BinarySearchTree.BinaryNode<int>(6);
-			Implementations.BinarySearchTree.BinaryNode<int> Node4 = new Implementations.BinarySearchTree.BinaryNode<int>(6);
+			//Implementations.BinarySearchTree.BinaryNode<int> Root = new Implementations.BinarySearchTree.BinaryNode<int>(6);
+			//Implementations.BinarySearchTree.BinaryNode<int> Node1 = new Implementations.BinarySearchTree.BinaryNode<int>(6);
+			//Implementations.BinarySearchTree.BinaryNode<int> Node2 = new Implementations.BinarySearchTree.BinaryNode<int>(6);
+			//Implementations.BinarySearchTree.BinaryNode<int> Node3 = new Implementations.BinarySearchTree.BinaryNode<int>(6);
+			//Implementations.BinarySearchTree.BinaryNode<int> Node4 = new Implementations.BinarySearchTree.BinaryNode<int>(6);
 
-			Root.Left = Node1;
-			Root.Right = Node2;
+			//Root.Left = Node1;
+			//Root.Right = Node2;
 
-			Node1.Left = Node3;
-			Node1.Right = Node4;
+			//Node1.Left = Node3;
+			//Node1.Right = Node4;
 
 
-			BinarySearchTree<int> bst = new BinarySearchTree<int>(Root);
-			Console.WriteLine(bst.InOrder());
+			//BinarySearchTree<int> bst = new BinarySearchTree<int>(Root);
+			//Console.WriteLine(bst.InOrder());
+
+			//Console.ReadKey();
+
+			Graph graph = new Graph();
+
+			graph.GetVertex("v0");
+			graph.GetVertex("v1");
+			graph.GetVertex("v2");
+			graph.GetVertex("v3");
+			graph.GetVertex("v4");
+			graph.GetVertex("v5");
+			graph.GetVertex("v6");
+
+			graph.AddEdge("v0", "v1", 2);
+			graph.AddEdge("v0", "v3", 1);
+
+			graph.AddEdge("v1", "v3", 3);
+			graph.AddEdge("v1", "v4", 10);
+
+			graph.AddEdge("v2", "v0", 4);
+			graph.AddEdge("v2", "v5", 5);
+			
+			graph.AddEdge("v3", "v2", 2);
+			graph.AddEdge("v3", "v5", 8);
+			graph.AddEdge("v3", "v6", 4);
+			graph.AddEdge("v3", "v4", 2);
+
+			graph.AddEdge("v4", "v6", 6);
+
+			graph.AddEdge("v6", "v5", 1);
+
+			Console.WriteLine(graph.ToString());
 
 			Console.ReadKey();
 		}

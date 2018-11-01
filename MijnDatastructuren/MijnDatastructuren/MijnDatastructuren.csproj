@@ -40,6 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Grafen\Edge.cs" />
+    <Compile Include="Grafen\Graph.cs" />
+    <Compile Include="Grafen\IGraph.cs" />
+    <Compile Include="Grafen\IVertex.cs" />
+    <Compile Include="Grafen\Vertex.cs" />
     <Compile Include="Implementations\ArrayList.cs" />
     <Compile Include="Implementations\BinaryNode.cs" />
     <Compile Include="Implementations\BinarySearchTree\BinaryNode.cs" />
