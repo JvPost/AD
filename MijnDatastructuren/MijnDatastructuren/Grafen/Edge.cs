@@ -16,5 +16,7 @@ namespace MijnDatastructuren.Grafen
 			Dest = destination;
 			Cost = cost;
 		}
+
+		public override string ToString() => Dest.Name;
 	}
 }

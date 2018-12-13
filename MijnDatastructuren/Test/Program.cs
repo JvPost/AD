@@ -9,6 +9,7 @@ using MijnAlgoritmen;
 using MijnDatastructuren.Implementations;
 using MijnDatastructuren.Implementations.BinarySearchTree;
 using MijnDatastructuren.Grafen;
+using MijnDatastructuren.Hashing;
 
 
 namespace MijnDatastructuren.Test
@@ -165,36 +166,62 @@ namespace MijnDatastructuren.Test
 
 			//Console.ReadKey();
 
-			Graph graph = new Graph();
 
-			graph.GetVertex("v0");
-			graph.GetVertex("v1");
-			graph.GetVertex("v2");
-			graph.GetVertex("v3");
-			graph.GetVertex("v4");
-			graph.GetVertex("v5");
-			graph.GetVertex("v6");
 
-			graph.AddEdge("v0", "v1", 2);
-			graph.AddEdge("v0", "v3", 1);
+			// ********************************** //
+			//			   Graphs	     		  //
+			// ********************************** //
 
-			graph.AddEdge("v1", "v3", 3);
-			graph.AddEdge("v1", "v4", 10);
+			//Graph graph = new Graph();
 
-			graph.AddEdge("v2", "v0", 4);
-			graph.AddEdge("v2", "v5", 5);
-			
-			graph.AddEdge("v3", "v2", 2);
-			graph.AddEdge("v3", "v5", 8);
-			graph.AddEdge("v3", "v6", 4);
-			graph.AddEdge("v3", "v4", 2);
+			//graph.GetVertex("v0");
+			//graph.GetVertex("v1");
+			//graph.GetVertex("v2");
+			//graph.GetVertex("v3");
+			//graph.GetVertex("v4");
+			//graph.GetVertex("v5");
+			//graph.GetVertex("v6");
 
-			graph.AddEdge("v4", "v6", 6);
+			//graph.AddEdge("v0", "v1", 2);
+			//graph.AddEdge("v0", "v3", 1);
 
-			graph.AddEdge("v6", "v5", 1);
+			//graph.AddEdge("v1", "v3", 3);
+			//graph.AddEdge("v1", "v4", 10);
 
-			Console.WriteLine(graph.ToString());
+			//graph.AddEdge("v2", "v0", 4);
+			//graph.AddEdge("v2", "v5", 5);
 
+			//graph.AddEdge("v3", "v2", 2);
+			//graph.AddEdge("v3", "v5", 8);
+			//graph.AddEdge("v3", "v6", 4);
+			//graph.AddEdge("v3", "v4", 2);
+
+			//graph.AddEdge("v4", "v6", 6);
+
+			//graph.AddEdge("v6", "v5", 1);
+
+			//graph.Dijkstra("v0");
+			//graph.PrintPath("v5");
+
+			//Console.ReadKey();
+
+			// ********************************** //
+			//			 PriorityQueue			  //
+			// ********************************** //
+			//int size = 50;
+
+			//ICollection<int> vals = new List<int>() { 14, 6, 5, 8, 1, 3, 12, 9, 7, 13, 2 };
+			//PriorityQueue<int> q = new PriorityQueue<int>(vals);
+
+			//Console.WriteLine(q.CheckValidity());
+			//Console.WriteLine("done");
+			//Console.ReadKey();
+
+			// ********************************** //
+			//			 Hashing				  //
+			// ********************************** //
+			int i = HashFunctions.Hash("Junk", 11 - 1);
+			Console.WriteLine(i);
 			Console.ReadKey();
 		}
 	}

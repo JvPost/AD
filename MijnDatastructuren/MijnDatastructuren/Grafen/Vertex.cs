@@ -11,7 +11,7 @@ namespace MijnDatastructuren.Grafen
 		public string Name { get; set; }
 		public List<Edge> Adjecent { get; set; }
 		public double Dist { get; set; }
-		public Vertex Prev { get; set; }
+		public IVertex Prev { get; set; }
 		public int Scratch { get; set; }
 
 		public Vertex(string name)
@@ -30,14 +30,7 @@ namespace MijnDatastructuren.Grafen
 
 		public override string ToString()
 		{
-			string str = $"{Name} --> ";
-			
-			foreach (var adj in Adjecent)
-			{
-				str += $"{adj.Dest.Name}({adj.Cost}) ";
-			}
-
-			return str;
+			return Name;
 		}
 	}
 }

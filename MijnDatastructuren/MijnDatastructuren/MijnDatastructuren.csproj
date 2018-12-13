@@ -44,7 +44,9 @@
     <Compile Include="Grafen\Graph.cs" />
     <Compile Include="Grafen\IGraph.cs" />
     <Compile Include="Grafen\IVertex.cs" />
+    <Compile Include="Grafen\Path.cs" />
     <Compile Include="Grafen\Vertex.cs" />
+    <Compile Include="Hashing\HashFunctions.cs" />
     <Compile Include="Implementations\ArrayList.cs" />
     <Compile Include="Implementations\BinaryNode.cs" />
     <Compile Include="Implementations\BinarySearchTree\BinaryNode.cs" />
@@ -71,5 +73,6 @@
     <Compile Include="PriorityQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

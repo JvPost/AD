@@ -11,5 +11,6 @@ namespace MijnDatastructuren.Grafen
 		Vertex GetVertex(string name);
 		void AddEdge(string source, string destination, double cost);
 		string ToString();
+		
 	}
 }
